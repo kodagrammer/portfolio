@@ -1,7 +1,17 @@
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+
+### macOS ###
+.DS_Store
+
+### VS Code ###
+.vscode/
+
+### Node / Frontend ###
 node_modules
 dist
 dist-ssr
 *.local
-.DS_Store
-.idea/
-*.iml
