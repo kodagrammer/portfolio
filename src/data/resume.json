@@ -1,0 +1,206 @@
+{
+  "profile": {
+    "name": "고다영",
+    "title": "Backend Developer",
+    "subtitle": "'왜 이렇게 해야 하는가'를 끊임없이 묻고 답하며\n서비스의 데이터 흐름과 정합성을 고민하는 개발자",
+    "contacts": {
+      "phone": "010-3097-6467",
+      "email": "dyko180801@gmail.com",
+      "github": "github.com/kodagrammer",
+      "location": "Haegok, Gyeonggi-do, KR"
+    }
+  },
+  "about": {
+    "description": "항공·반도체 도메인에서 대규모 데이터를 안정적으로 처리하고 레거시 구조 개선을 주도해온 백엔드 개발자입니다. Spring Boot 기반 정산 시스템 재구축부터 WinForm·Java 혼합 환경 유지보수까지 다양한 운영 환경에서 문제의 근본 원인을 분석하고 재발 가능성을 줄이는 방식을 일하는 기준으로 삼아왔습니다.",
+    "highlights": [
+      {
+        "number": "90%",
+        "label": "처리 속도 개선",
+        "description": "정산 API 45분 → 3분"
+      },
+      {
+        "number": "95%",
+        "label": "오류율 감소",
+        "description": "정합성 오류 대폭 감소"
+      },
+      {
+        "number": "60%",
+        "label": "유지보수 단축",
+        "description": "레거시 리팩토링"
+      },
+      {
+        "number": "2개",
+        "label": "도메인 경험",
+        "description": "항공·반도체"
+      }
+    ]
+  },
+  "skills": {
+    "Backend Development": ["Java", "Spring Boot", "Spring Batch", "C#", ".NET Framework"],
+    "Databases": ["MySQL", "Oracle", "MSSQL"],
+    "Infrastructure": ["Linux", "Windows Server", "Bitbucket Pipelines"],
+    "Big Data": ["Hadoop", "Spark", "Apache Airflow", "Presto/Trino"],
+    "Tools": ["Git", "Confluence", "Jira", "TFS"]
+  },
+  "workExperience": [
+    {
+      "company": "타이드스퀘어",
+      "position": "Backend Developer",
+      "period": "2023.01 - 2025.05",
+      "duration": "2년 5개월",
+      "description": "항공정산 시스템 재구축 및 운영"
+    },
+    {
+      "company": "㈜인포그램",
+      "position": "Software Engineer",
+      "period": "2019.02 - 2022.12",
+      "duration": "3년 11개월",
+      "description": "SK하이닉스 SmartFactory 시스템 개발 및 운영"
+    }
+  ],
+  "projects": [
+    {
+      "id": "airline-settlement",
+      "title": "항공정산 시스템 재구축",
+      "company": "타이드스퀘어",
+      "period": "2023.01 - 2025.05",
+      "tags": ["Spring Boot", "Spring Batch", "MySQL", "MSSQL"],
+      "summary": "레거시 MSSQL SP 기반 정산 시스템을 Spring Boot·Spring Batch 기반으로 재구축",
+      "thumbnail": "✈️",
+      "role": "Backend Developer",
+      "teamSize": "3명 (백엔드 2, 기획 1)",
+      "myContribution": "백엔드 개발 총괄, 아키텍처 설계",
+      "background": "기존 정산 시스템은 MSSQL Stored Procedure 기반으로, 정책 변경 시 수십 개의 쿼리를 수정해야 했고 정합성 오류가 빈번하게 발생했습니다.",
+      "challenges": [
+        {
+          "title": "정책 변경 대응의 어려움",
+          "description": "SP 구조로 인해 정책 변경 시 수십 개 쿼리 수정 필요"
+        },
+        {
+          "title": "데이터 정합성 문제",
+          "description": "3개 백오피스의 데이터 포맷이 상이하여 정합성 오류 빈번"
+        },
+        {
+          "title": "성능 병목",
+          "description": "정산 Job이 단일 흐름으로 묶여 있어 API 지연 발생"
+        }
+      ],
+      "solutions": [
+        {
+          "title": "Policy Layer 분리",
+          "description": "정책 계산 로직을 전략 패턴 기반의 Policy Layer로 분리",
+          "techDetails": "전략 패턴과 템플릿 메서드 패턴을 활용하여 정책별 계산 로직을 독립적으로 관리"
+        },
+        {
+          "title": "데이터 표준화",
+          "description": "3개 백오피스 데이터를 표준 스키마로 통합",
+          "techDetails": "공통 Domain Entity 설계, 각 백오피스별 Adapter 패턴 적용"
+        },
+        {
+          "title": "병렬 처리 최적화",
+          "description": "Spring Batch Partitioning과 Multi-threading 활용",
+          "techDetails": "사전 집계 전략으로 성능 개선"
+        }
+      ],
+      "results": [
+        {
+          "metric": "정산 API 처리 속도",
+          "before": "45분",
+          "after": "3분",
+          "improvement": "90% 개선"
+        },
+        {
+          "metric": "전처리 Batch 시간",
+          "before": "4시간",
+          "after": "1시간",
+          "improvement": "75% 단축"
+        },
+        {
+          "metric": "정합성 오류율",
+          "before": "100%",
+          "after": "5%",
+          "improvement": "95% 감소"
+        }
+      ],
+      "learned": [
+        "레거시 시스템 마이그레이션 시 단계적 전환 전략의 중요성",
+        "정책과 비즈니스 로직 분리를 통한 유지보수성 향상",
+        "대용량 데이터 처리 시 병렬 처리와 사전 집계의 효과"
+      ]
+    },
+    {
+      "id": "smartfactory-system",
+      "title": "SK하이닉스 SmartFactory 시스템",
+      "company": "㈜인포그램",
+      "period": "2019.02 - 2022.12",
+      "tags": ["Java", "C#", ".NET", "Oracle"],
+      "summary": "반도체 장비 데이터 수집 및 분석 시스템 유지보수",
+      "thumbnail": "🏭",
+      "role": "Software Engineer",
+      "teamSize": "5명",
+      "myContribution": "백엔드 유지보수, 성능 개선",
+      "background": "SK하이닉스 반도체 공장의 장비 데이터를 실시간으로 수집하고 분석하는 시스템",
+      "challenges": [
+        {
+          "title": "대용량 데이터 조회",
+          "description": "100만~700만 건 조회 시 OOM 발생"
+        },
+        {
+          "title": "레거시 코드",
+          "description": "하드코딩으로 인한 유지보수 어려움"
+        }
+      ],
+      "solutions": [
+        {
+          "title": "페이징 기반 조회",
+          "description": "메모리 누수 문제를 페이징 기법으로 해결",
+          "techDetails": "Oracle ROWNUM과 Offset 기반 페이징 적용"
+        },
+        {
+          "title": "레거시 리팩토링",
+          "description": "하드코딩 제거, DTO 도입",
+          "techDetails": "Factory Pattern과 Observer Pattern 적용"
+        }
+      ],
+      "results": [
+        {
+          "metric": "정책 반영 시간",
+          "before": "10일",
+          "after": "4일",
+          "improvement": "60% 단축"
+        }
+      ],
+      "learned": [
+        "대용량 데이터 처리 시 메모리 관리의 중요성",
+        "레거시 시스템에서 점진적 개선 전략"
+      ]
+    }
+  ],
+  "education": {
+    "university": "명지대학교",
+    "major": "교통공학과",
+    "degree": "학사",
+    "period": "2012.03 - 2019.02",
+    "research": "ITS(지능형 교통 체계) 연구실 학부연구생 | 2014.03 - 2014.08"
+  },
+  "references": [
+    {
+      "name": "황원우",
+      "position": "인포그램 주식회사 / 대표이사",
+      "summary": "뛰어난 업무 실적으로 특진, 대용량 데이터 처리 및 협업 능력 탁월",
+      "content": "고다영 과장은 인포그램에 신입으로 입사하여 반도체 DT 솔루션 개발을 경험하며 뛰어난 업무 실적으로 특진을 할 만큼 성실하고 열심히 회사 생활을 하였습니다."
+    },
+    {
+      "name": "이충식",
+      "position": "타이드스퀘어 / 항공PO팀",
+      "summary": "정산 시스템 개발 및 아키텍처 설계 주도",
+      "content": "다영님은 기존 시스템의 구조적 한계를 빠르게 파악하고, 개선 방향을 주도해 확장성과 연동성을 갖춘 아키텍처를 설계했습니다."
+    },
+    {
+      "name": "정지원",
+      "position": "타이드스퀘어 / Fintech실",
+      "summary": "기획-개발-데이터 흐름 전반 이해",
+      "content": "단순히 주어진 기획을 구현하는 것을 넘어 예외 케이스들을 선제적으로 제안하고, 논리적 완성도를 높여주셨습니다."
+    }
+  ]
+}
