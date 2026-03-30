@@ -1,0 +1,43 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+    # 1. 불필요한 빌드 방지를 위한 무시 설정
+    paths-ignore:
+      - '**.md'
+      - '.gitignore'
+      - '.editorconfig'
+      - 'LICENSE'
+      - '.github/ISSUE_TEMPLATE/**' # 이슈 템플릿 수정 시 무시
+      - '.github/PULL_REQUEST_TEMPLATE.md' # PR 템플릿 수정 시 무시
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          # 2. 내장된 캐시 기능 활성화 (npm 기준)
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        # Vite는 결과물이 dist 폴더에 생성됩니다.
+        run: npm run build
+
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist # Vite 빌드 결과 폴더
+          branch: gh-pages # 배포될 브랜치
+          clean: true # 배포 시 기존 파일 정리
