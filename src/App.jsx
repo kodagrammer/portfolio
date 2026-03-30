@@ -1,32 +1,27 @@
-import { useEffect, useState } from 'react'
-import resume from './data/resume.json'
+import data from './data/portfolio.json'
 
+import Nav from './components/Nav'
 import Hero from './components/Hero'
 import About from './components/About'
+import Skills from './components/Skills'
 import Experience from './components/Experience'
 import Projects from './components/Projects'
-import Skills from './components/Skills'
-import DarkModeToggle from './components/DarkModeToggle'
+import Education from './components/Education'
+import Footer from './components/Footer'
 
 function App() {
-  const [dark, setDark] = useState(false)
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', dark)
-  }, [dark])
-
   return (
     <div className="min-h-screen">
-      <DarkModeToggle dark={dark} toggle={() => setDark(!dark)} />
-
-      <Hero profile={resume.profile} />
-      <About about={resume.about} />
-      <Skills skills={resume.skills} />
-      <Experience workExperience={resume.workExperience} />
-      <Projects projects={resume.projects} />
+      <Nav />
+      <Hero profile={data.profile} />
+      <About about={data.about} profile={data.profile} />
+      <Skills skills={data.skills} />
+      <Experience workExperience={data.workExperience} />
+      <Projects projects={data.projects} />
+      <Education education={data.education} />
+      <Footer profile={data.profile} />
     </div>
   )
 }
 
 export default App
-

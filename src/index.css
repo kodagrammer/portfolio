@@ -1,23 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Serif+Display:ital@0;1&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --color-primary: #1d4ed8;
+  --color-primary-dark: #1e40af;
+  --color-primary-pale: #dbeafe;
+  --color-text: #1e293b;
+  --color-text-mid: #475569;
+  --color-text-light: #94a3b8;
+  --color-bg: #f8fafc;
+  --color-bg-alt: #f1f5f9;
+  --color-card: #ffffff;
+  --color-border: #e2e8f0;
+}
 
 @layer base {
   * {
     scroll-behavior: smooth;
   }
-  
+
   body {
-    @apply bg-white dark:bg-dark-bg text-gray-900 dark:text-gray-100 font-sans;
+    @apply bg-bg text-text font-sans;
     transition: background-color 0.3s ease;
   }
 }
 
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
 @layer utilities {
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-400 dark:from-primary-400 dark:to-primary-200;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-400;
   }
-  
+
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -32,9 +52,10 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-100 dark:bg-dark-bg;
+  background: var(--color-bg-alt);
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-primary-400 dark:bg-primary-600 rounded-full;
+  background: var(--color-primary);
+  border-radius: 9999px;
 }
