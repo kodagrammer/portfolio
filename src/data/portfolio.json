@@ -1,0 +1,127 @@
+{
+  "profile": {
+    "name": "고다영",
+    "nameEn": "Da-young Ko",
+    "tagline": "복잡성을 구조로 바꾸는 백엔드 엔지니어",
+    "typingPhrases": [
+      "변화 속에서도 흔들리지 않는 기준을 설계합니다.",
+      "단순히 장애를 줄이는 것을 넘어, 팀이 **일관된 판단을 할 수 있는 구조**를 만듭니다."
+    ],
+    "contacts": {
+      "email": "dyko180801@gmail.com",
+      "github": "github.com/kodagrammer",
+      "resumeUrl": "https://docs.google.com/document/d/1x_LhtZsNclhlf9FTaAaDoyWrhRCqxu8Diyn9J8F_2rU/edit?usp=sharing"
+    }
+  },
+
+  "about": {
+    "photo": "/images/profile.jpg",
+    "description": [
+      "6년차 백엔드 엔지니어로, **대규모 데이터 처리** 및 운영 **시스템 설계 경험**을 보유하고 있습니다.",
+      "메모리 병목, 트랜잭션 경합, 정책 변경 비용 등 구조적 문제를 개선하며 **성능 향상과 정책 변경 비용 최소화**를 동시에 달성해왔습니다.",
+      "다양한 이해관계자들과 소통하여 개발 너머의 맥락을 파악하고, 그 **맥락에 맞는 설계**를 고민하는 것을 좋아합니다.",
+      "AI로 구현과 테스트를 자동화하고, 엔지니어로서 코드의 무결성 검토와 고도화된 설계에 집중하는 워크플로우를 정립하고 있습니다."
+    ],
+    "tags": [
+      { "label": "6 years+", "accent": false },
+      { "label": "핵심키워드1", "accent": true },
+      { "label": "핵심키워드2", "accent": true }
+    ]
+  },
+
+  "skills": {
+    "Programming": ["Java", "Spring Boot", "Spring Batch", "Mybatis", "MySQL", "Oracle", "Linux"],
+    "Tools": ["Git", "Confluence/Jira", "Claude Code"],
+    "Learning": ["Kotlin", "AI Workflow Optimization"]
+  },
+
+  "workExperience": [
+    {
+      "company": "타이드스퀘어",
+      "department": "Fintech실",
+      "position": "Backend Developer",
+      "startDate": "2023-01",
+      "endDate": "2025-05",
+      "description": ["항공정산 MSA 시스템 설계 및 운영"]
+    },
+    {
+      "company": "인포그램",
+      "department": "하이테크사업부",
+      "position": "Software Engineer",
+      "grade": "과장",
+      "startDate": "2019-02",
+      "endDate": "2022-12",
+      "description": ["SK하이닉스 SmartFactory 장비 데이터 수집·분석 시스템 개선 및 유지보수"]
+    }
+  ],
+
+  "projects": [
+    {
+      "id": "clare-airline-settlement",
+      "title": "CLARE : 항공정산 재구축 프로젝트",
+      "company": "타이드스퀘어",
+      "type": "work",
+      "startDate": "2023-01",
+      "endDate": "2025-05",
+      "description": "ERP 내 정산 모듈을 Spring Boot 기반의 MSA 서비스로 분리·재구축하고, 항공사·제휴사·PG 정산 정책이 복잡하게 얽힌 항공 정산 도메인을 데이터 전처리/정책 계산/실행 제어 계층으로 분리하여 성능 병목, 동시성 문제, 정책 변경 리스크를 구조적으로 해결",
+      "skills": ["Java", "Spring Boot", "Spring Batch", "Mybatis", "MSSQL", "AWS EC2"],
+      "issues": [
+        {
+          "title": "Spring Batch Deadlock 해결 — 병렬 Job 환경에서의 트랜잭션 충돌",
+          "postPath": ""
+        },
+        {
+          "title": "ERP 실시간 동기화 설계 판단 — 기술 이상향 vs 실행 가능성",
+          "postPath": ""
+        }
+      ]
+    },
+    {
+      "id": "infogram-sample",
+      "title": "인포그램 프로젝트 SAMPLE",
+      "company": "인포그램",
+      "type": "work",
+      "startDate": "2019-02",
+      "endDate": "2022-12",
+      "description": "SK하이닉스 SmartFactory 장비·품질 데이터 수집·분석 시스템을 유지보수하며, 기능 개선과 구조 개선을 수행",
+      "skills": ["Java", "Spring Framework", "Oracle", "C#", "Winform"],
+      "issues": [
+        {
+          "title": "100~700만 건 Excel 추출 시 반복적 OOM 발생",
+          "postPath": ""
+        }
+      ]
+    }
+  ],
+
+  "education": [
+    {
+      "school": "한국방송통신대학교",
+      "logo": "/images/school-knou.jpg",
+      "major": "컴퓨터과학과",
+      "degree": "학사",
+      "startDate": "2021-09",
+      "endDate": null,
+      "status": "재학중",
+      "achievements": [
+        "컴퓨터과학 기초 이론 학습",
+        "자료구조, 운영체제 등 CS 기반 보완"
+      ]
+    },
+    {
+      "school": "명지대학교",
+      "logo": "/images/school-mju.jpg",
+      "major": "교통공학과",
+      "degree": "학사",
+      "startDate": "2012-03",
+      "endDate": "2019-02",
+      "status": "졸업",
+      "achievements": [
+        "공학적 문제 해결 사고 기반 학습",
+        "ITS 연구실 학부연구생 (6개월)",
+        "교통 시스템–IT 융합 관심 형성",
+        "국비지원 교육 수강 및 개발 전향"
+      ]
+    }
+  ]
+}

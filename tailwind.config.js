@@ -3,31 +3,23 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
-        display: ['"Playfair Display"', 'serif'],
-        sans: ['"Work Sans"', 'sans-serif'],
+        'dm-serif': ['"Playfair Display"', 'serif'],
+        sans: ['Pretendard', '-apple-system', 'sans-serif'],
       },
       colors: {
-        primary: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
-          800: '#075985',
-          900: '#0c4a6e',
-        },
-        dark: {
-          bg: '#0a0e27',
-          card: '#141b2d',
-          border: '#1e293b',
-        }
+        primary: '#1d4ed8',
+        'primary-dark': '#1e40af',
+        'primary-pale': '#dbeafe',
+        text: '#1e293b',
+        'text-mid': '#475569',
+        'text-light': '#94a3b8',
+        bg: '#f8fafc',
+        'bg-alt': '#f1f5f9',
+        card: '#ffffff',
+        border: '#e2e8f0',
       },
     },
   },
