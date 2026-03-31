@@ -1,8 +1,10 @@
 // skill명 → simpleicons slug 또는 이모지 매핑
 const SKILL_ICON_MAP = {
   'Java':                      { type: 'emoji', value: '☕' },
+  'C#':                        { type: 'emoji', value: '#️⃣' },
   'Spring Boot':               { type: 'icon', slug: 'springboot' },
   'Spring Batch':              { type: 'icon', slug: 'spring' },
+  '.NET':                      { type: 'icon', slug: '.net' },
   'Mybatis':                   { type: 'emoji', value: '🗃️' },
   'MySQL':                     { type: 'icon', slug: 'mysql' },
   'Oracle':                    { type: 'emoji', value: '🛢️' },

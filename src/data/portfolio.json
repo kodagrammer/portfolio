@@ -33,7 +33,7 @@
   },
 
   "skills": {
-    "Programming": ["Java", "Spring Boot", "Spring Batch", "Mybatis", "MySQL", "Oracle", "Linux"],
+    "Programming": ["Java", "C#","Spring Boot", "Spring Batch", ".NET", "Mybatis", "MySQL", "Oracle", "Linux"],
     "Tools": ["Git", "Confluence/Jira", "Claude Code"],
     "Learning": ["Kotlin", "AI Workflow Optimization"]
   },
@@ -45,7 +45,18 @@
       "position": "Backend Developer",
       "startDate": "2023-01",
       "endDate": "2025-05",
-      "description": ["항공정산 MSA 시스템 설계 및 운영"]
+      "role": [
+        "**레거시 재구축 주도** | MSSQL SP 기반 시스템의 Spring Boot/Batch MSA 전환 설계 및 구현",
+        "**아키텍처 최적화** | 도메인·정책·배치 계층 분리 및 전략+메서드템플릿 디자인 패턴 도입으로 유연성 확보",
+        "**데이터 표준화** | 3개 백오피스의 이종 데이터를 통합 표준 스키마로 설계하여 데이터 정합성 체계 구축",
+        "**도메인 커뮤니케이션** | 유관부서 간 정산 정책 차이 조율 및 시스템 데이터 기준 정립"
+      ],
+      "achievements": [
+        "**정산 처리 성능 90% 개선** | API 처리 시간 단축(45분 → 3분) 및 배치 처리 시간(4시간 → 1시간) 최적화",
+        "**운영 효율 극대화** | 비정형 데이터 자동화로 운영팀 리소스 월 152시간 절감 및 오류율 95% 감소",
+        "**기술적 병목 해결** | JSON 역직렬화 속도 17배 향상 및 배치 데드락 재발 방지 체계 구축"
+      ],
+      "skill": ["Java", "Spring Boot", "Spring Batch", "Mybatis", "MySQL", "MSSQL","AWS EC2", "Git", "Bitbucket Pipelines"]
     },
     {
       "company": "인포그램",
@@ -54,7 +65,18 @@
       "grade": "과장",
       "startDate": "2019-02",
       "endDate": "2022-12",
-      "description": ["SK하이닉스 SmartFactory 장비 데이터 수집·분석 시스템 개선 및 유지보수"]
+      "role": [
+        "**대규모 데이터 시스템 운영** | SK하이닉스 SmartFactory 장비/품질 데이터 분석 시스템 유지보수(Java/C#)",
+        "**시스템 안정화** | 하드코딩 제거, DTO 도입 및 이벤트 기반 UI 구조 개선 등 레거시 리팩토링 주도",
+        "**성능 튜닝** | Oracle 기반 대규모 쿼리 최적화 및 엑셀 추출 등 대용량 데이터 처리 기능 개선",
+        "**운영 프로세스 자산화** | 반복 장애 유형 카테고리화 및 조치 가이드 문서화로 협업 구조 단순화"
+      ],
+      "achievements": [
+        "**메모리 관리 최적화** | 700만 건 대용량 조회 시 발생하는 OOM 문제를 페이징 기반 조회 구조로 전환",
+        "**유지보수 생산성 향상** | 리팩토링을 통해 정책 반영 소요 기간 60% 단축(10일 → 4일)",
+        "**데이터 무결성 확보** | 데이터 누락 및 반복 오류의 구조적 개선으로 시스템 신뢰도 향상"
+      ],
+      "skill": ["Java", "C#", "Spring", ".NET Winforms", "ASP.NET", "Oracle", "Trino","Linux", "Windows Server", "TFS", "Git"]
     }
   ],
 

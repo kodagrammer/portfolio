@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { calcDuration, calcTotalCareer, formatYearMonth } from '../utils/dateUtils'
+import { parseBold } from '../utils/parseMarkdown'
 
 export default function Experience({ workExperience }) {
   const [selectedIdx, setSelectedIdx] = useState(0)
@@ -82,13 +83,35 @@ function ExperienceDetail({ exp }) {
         {exp.department} · {exp.position}
       </p>
       <hr className="border-border mb-6" />
+      <p className="text-xs font-sans font-semibold text-text-light uppercase tracking-widest mb-2">역할 및 업무</p>
       <ul className="list-disc pl-5 flex flex-col gap-2">
-        {exp.description.map((desc, i) => (
+        {exp.role.map((desc, i) => (
             <li key={i} className="text-text-mid text-sm leading-relaxed">
-                {desc}
+                {parseBold(desc)}
             </li>
         ))}
       </ul>
+      {exp.achievements && exp.achievements.length > 0 && (
+        <>
+          <p className="text-xs font-sans font-semibold text-text-light uppercase tracking-widest mt-6 mb-2">주요성과</p>
+          <ul className="list-disc pl-5 flex flex-col gap-2">
+            {exp.achievements.map((item, i) => (
+              <li key={i} className="text-text-mid text-sm leading-relaxed">
+                {parseBold(item)}
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+      {exp.skill && exp.skill.length > 0 && (
+          <div className="mt-8 flex flex-wrap gap-1.5">
+            {exp.skill.map((s, i) => (
+              <span key={i} className="text-xs text-text-light bg-bg px-2 py-0.5 rounded-md border border-border">
+                {s}
+              </span>
+            ))}
+          </div>
+      )}
     </div>
   )
 }
