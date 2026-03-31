@@ -1,12 +1,11 @@
 ## 고다영 포트폴리오
 
-백엔드 개발자 고다영의 포트폴리오 사이트입니다.
-
-**[바로가기](https://kodagrammer.github.io/portfolio)**
+백엔드 개발자 고다영의 포트폴리오 사이트입니다. 
+🔗 **[바로가기](https://kodagrammer.github.io/portfolio)**
 
 <br>
 
-### 사용 기술
+## 사용 기술
 
 - React 18 + Vite
 - Tailwind CSS (커스텀 디자인 토큰)
@@ -14,7 +13,7 @@
 
 <br>
 
-### 기술 적용 및 구현 포인트
+## 기술 적용 및 구현 포인트
 
 **타이핑 애니메이션 직접 구현**
 - 외부 라이브러리 없이 `useEffect`와 `useRef`를 활용해 타이핑 효과 구현
@@ -30,7 +29,7 @@
 
 <br>
 
-### 로컬 실행
+## 로컬 실행
 
 ```bash
 npm install
