@@ -1,7 +1,6 @@
 import { parseBold } from '../utils/parseMarkdown'
 const profileImg = `${import.meta.env.BASE_URL}images/profile.jpg`
 
-const DESCRIPTION_EMOJIS = ['💻', '🚀', '💭', '💡']
 
 export default function About({ about, profile }) {
   return (
@@ -20,8 +19,8 @@ export default function About({ about, profile }) {
 
       <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-[4fr_6fr] gap-8 items-start">
 
-        {/* 좌측: 프로필 사진 + Contact 링크 */}
-        <div className="flex flex-col items-center gap-6">
+        {/* 좌측: 프로필 사진 */}
+        <div className="flex flex-col items-center">
           <div className="w-full max-w-[240px] md:max-w-[340px] aspect-square rounded-2xl overflow-hidden bg-bg border border-border">
             <img
               src={profileImg}
@@ -29,38 +28,20 @@ export default function About({ about, profile }) {
               className="w-full h-full object-cover"
             />
           </div>
-
-          <div className="flex flex-row flex-wrap gap-2 w-full max-w-[340px] justify-center">
-            <a
-              href={profile.contacts.resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center justify-center gap-1 px-4 py-2 rounded-xl border border-border bg-card text-xs font-medium text-text-mid hover:border-primary hover:text-primary hover:shadow-sm transition-all duration-200 cursor-pointer"
-            >
-              Resume
-              <span className="opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 text-xs">↗</span>
-            </a>
-            <a
-              href={`mailto:${profile.contacts.email}`}
-              className="group flex items-center justify-center gap-1 px-4 py-2 rounded-xl border border-border bg-card text-xs font-medium text-text-mid hover:border-primary hover:text-primary hover:shadow-sm transition-all duration-200 cursor-pointer"
-            >
-              Email
-              <span className="opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 text-xs">↗</span>
-            </a>
-            <a
-              href={`https://${profile.contacts.github}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center justify-center gap-1 px-4 py-2 rounded-xl border border-border bg-card text-xs font-medium text-text-mid hover:border-primary hover:text-primary hover:shadow-sm transition-all duration-200 cursor-pointer"
-            >
-              GitHub
-              <span className="opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 text-xs">↗</span>
-            </a>
-          </div>
         </div>
 
         {/* 우측: 소개 텍스트 */}
         <div>
+          <div className="mb-8 space-y-4">
+            {about.description.map((para, idx) => (
+              <p key={idx} className="text-text-mid leading-relaxed text-sm md:text-[0.9375rem] lg:text-base">
+                {para.split('\n').map((line, i, arr) => (
+                  <span key={i}>{parseBold(line)}{i < arr.length - 1 && <br />}</span>
+                ))}
+              </p>
+            ))}
+          </div>
+
           <div className="flex flex-wrap gap-2">
             {about.tags.map((tag, idx) => (
                 <span
@@ -75,20 +56,36 @@ export default function About({ about, profile }) {
               </span>
             ))}
           </div>
-
-          <div className="flex flex-col gap-4 mt-8 mb-8">
-            {about.description.map((para, idx) => (
-              <div key={idx} className="flex items-start gap-3">
-                <span className="text-base shrink-0 mt-0.5">
-                  {DESCRIPTION_EMOJIS[idx]}
-                </span>
-                <p className="text-text-mid leading-relaxed text-sm md:text-base">
-                  {parseBold(para)}
-                </p>
-              </div>
-            ))}
-          </div>
         </div>
+      </div>
+
+      {/* 하단 Contact 버튼 */}
+      <div className="max-w-[1100px] mx-auto flex flex-row flex-wrap justify-center gap-2 mt-12">
+        <a
+          href={profile.contacts.resumeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex items-center justify-center gap-1 px-4 py-2 rounded-xl border border-border bg-card text-xs font-medium text-text-mid hover:border-primary hover:text-primary hover:shadow-sm transition-all duration-200 cursor-pointer"
+        >
+          Resume
+          <span className="opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 text-xs">↗</span>
+        </a>
+        <a
+          href={`mailto:${profile.contacts.email}`}
+          className="group flex items-center justify-center gap-1 px-4 py-2 rounded-xl border border-border bg-card text-xs font-medium text-text-mid hover:border-primary hover:text-primary hover:shadow-sm transition-all duration-200 cursor-pointer"
+        >
+          Email
+          <span className="opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 text-xs">↗</span>
+        </a>
+        <a
+          href={`https://${profile.contacts.github}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex items-center justify-center gap-1 px-4 py-2 rounded-xl border border-border bg-card text-xs font-medium text-text-mid hover:border-primary hover:text-primary hover:shadow-sm transition-all duration-200 cursor-pointer"
+        >
+          GitHub
+          <span className="opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200 text-xs">↗</span>
+        </a>
       </div>
     </section>
   )
