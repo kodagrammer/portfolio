@@ -12,7 +12,9 @@ export default function About({ about, profile }) {
           About Me
         </p>
         <h2 className="font-sans text-[clamp(1rem,2vw,1.25rem)] text-text-mid mb-12 leading-snug text-center">
-          "My slogan"
+          "{about.slogan.split('\n').map((line, i, arr) => (
+            <span key={i}>{parseBold(line)}{i < arr.length - 1 && <br />}</span>
+          ))}"
         </h2>
       </div>
 
