@@ -16,21 +16,24 @@
 
   "about": {
     "photo": "/images/profile.jpg",
+    "slogan": "개발은 기능을 구현하는 일이 아니라,\n**문제의 본질**에 다가가는 과정입니다.",
     "description": [
-      "6년차 백엔드 엔지니어로, **대규모 데이터 처리** 및 운영 **시스템 설계 경험**을 보유하고 있습니다.",
-      "메모리 병목, 트랜잭션 경합, 정책 변경 비용 등 구조적 문제를 개선하며 **성능 향상과 정책 변경 비용 최소화**를 동시에 달성해왔습니다.",
-      "다양한 이해관계자들과 소통하여 개발 너머의 맥락을 파악하고, 그 **맥락에 맞는 설계**를 고민하는 것을 좋아합니다.",
-      "AI로 구현과 테스트를 자동화하고, 엔지니어로서 코드의 무결성 검토와 고도화된 설계에 집중하는 워크플로우를 정립하고 있습니다."
+      "항공정산·반도체 도메인에서 **대규모 데이터 처리**와 **레거시 시스템 구조 개선**을 주도해왔습니다.",
+      "단순한 문제 해결을 넘어, 동일한 이슈가 반복되지 않도록 **구조적 대안을 제시**하는 데 집중합니다. 특히 복잡한 연동 환경에서 데이터 정합성을 보호하고, 정책 변화가 내부 로직에 미치는 **영향을 최소화하는 유연한 설계**를 지향합니다.",
+      "기획, 운영, 재무 등 다양한 직군과 협업하며 개발 너머의 비즈니스 흐름을 파악하고 **데이터 기준을 직접 정립**해왔습니다. 이해관계자마다 다른 요구사항 속에서 **최적의 접점**을 찾아내어 이를 설계로 녹여내는 과정에 익숙합니다.",
+      "AI를 구현·테스트 자동화 도구로 활용하며, 엔지니어로서 코드 무결성 검토와 설계 고도화에 집중하는 워크플로우를 만들어가고 있습니다."
     ],
     "tags": [
       { "label": "6 years+", "accent": false },
-      { "label": "핵심키워드1", "accent": true },
-      { "label": "핵심키워드2", "accent": true }
+      { "label": "구조적 설계", "accent": true },
+      { "label": "대규모 배치 처리", "accent": true },
+      { "label": "레거시 구조 개선", "accent": true },
+      { "label": "도메인 기반 협업", "accent": true }
     ]
   },
 
   "skills": {
-    "Programming": ["Java", "Spring Boot", "Spring Batch", "Mybatis", "MySQL", "Oracle", "Linux"],
+    "Programming": ["Java", "C#","Spring Boot", "Spring Batch", ".NET", "Mybatis", "MySQL", "Oracle", "Linux"],
     "Tools": ["Git", "Confluence/Jira", "Claude Code"],
     "Learning": ["Kotlin", "AI Workflow Optimization"]
   },
@@ -42,7 +45,18 @@
       "position": "Backend Developer",
       "startDate": "2023-01",
       "endDate": "2025-05",
-      "description": ["항공정산 MSA 시스템 설계 및 운영"]
+      "role": [
+        "**레거시 재구축 주도** | MSSQL SP 기반 시스템의 Spring Boot/Batch MSA 전환 설계 및 구현",
+        "**아키텍처 최적화** | 도메인·정책·배치 계층 분리 및 전략+메서드템플릿 디자인 패턴 도입으로 유연성 확보",
+        "**데이터 표준화** | 3개 백오피스의 이종 데이터를 통합 표준 스키마로 설계하여 데이터 정합성 체계 구축",
+        "**도메인 커뮤니케이션** | 유관부서 간 정산 정책 차이 조율 및 시스템 데이터 기준 정립"
+      ],
+      "achievements": [
+        "**정산 처리 성능 90% 개선** | API 처리 시간 단축(45분 → 3분) 및 배치 처리 시간(4시간 → 1시간) 최적화",
+        "**운영 효율 극대화** | 비정형 데이터 자동화로 운영팀 리소스 월 152시간 절감 및 오류율 95% 감소",
+        "**기술적 병목 해결** | JSON 역직렬화 속도 17배 향상 및 배치 데드락 재발 방지 체계 구축"
+      ],
+      "skill": ["Java", "Spring Boot", "Spring Batch", "Mybatis", "MySQL", "MSSQL","AWS EC2", "Git", "Bitbucket Pipelines"]
     },
     {
       "company": "인포그램",
@@ -51,7 +65,18 @@
       "grade": "과장",
       "startDate": "2019-02",
       "endDate": "2022-12",
-      "description": ["SK하이닉스 SmartFactory 장비 데이터 수집·분석 시스템 개선 및 유지보수"]
+      "role": [
+        "**대규모 데이터 시스템 운영** | SK하이닉스 SmartFactory 장비/품질 데이터 분석 시스템 유지보수(Java/C#)",
+        "**시스템 안정화** | 하드코딩 제거, DTO 도입 및 이벤트 기반 UI 구조 개선 등 레거시 리팩토링 주도",
+        "**성능 튜닝** | Oracle 기반 대규모 쿼리 최적화 및 엑셀 추출 등 대용량 데이터 처리 기능 개선",
+        "**운영 프로세스 자산화** | 반복 장애 유형 카테고리화 및 조치 가이드 문서화로 협업 구조 단순화"
+      ],
+      "achievements": [
+        "**메모리 관리 최적화** | 700만 건 대용량 조회 시 발생하는 OOM 문제를 페이징 기반 조회 구조로 전환",
+        "**유지보수 생산성 향상** | 리팩토링을 통해 정책 반영 소요 기간 60% 단축(10일 → 4일)",
+        "**데이터 무결성 확보** | 데이터 누락 및 반복 오류의 구조적 개선으로 시스템 신뢰도 향상"
+      ],
+      "skill": ["Java", "C#", "Spring", ".NET Winforms", "ASP.NET", "Oracle", "Trino","Linux", "Windows Server", "TFS", "Git"]
     }
   ],
 
@@ -63,31 +88,70 @@
       "type": "work",
       "startDate": "2023-01",
       "endDate": "2025-05",
-      "description": "ERP 내 정산 모듈을 Spring Boot 기반의 MSA 서비스로 분리·재구축하고, 항공사·제휴사·PG 정산 정책이 복잡하게 얽힌 항공 정산 도메인을 데이터 전처리/정책 계산/실행 제어 계층으로 분리하여 성능 병목, 동시성 문제, 정책 변경 리스크를 구조적으로 해결",
+      "description": "레거시 시스템 내 정산 모듈을 Spring Boot 기반의 독립 서비스로 분리하고, 수백만 건의 항공 정산 데이터를 안정적으로 처리하는 MSA 구조의 정산 시스템 설계 및 개발",
       "skills": ["Java", "Spring Boot", "Spring Batch", "Mybatis", "MSSQL", "AWS EC2"],
-      "issues": [
+      "contributions": [
+        "레거시 전환 주도 | 레거시 SP 프로세스를 Spring Batch 전처리와 실시간 API 서비스로 이원화하여 시스템 계층 및 책임 분리",
+        "데이터 표준화 | 3개 백오피스 이종 포맷 데이터를 표준 스키마로 통합, 전처리 계층에서 데이터 포맷 불일치로 인한 장애 전파 사전 차단",
+        "정책 관리 유연성 확보 | DB 설정 기반의 전략 패턴 적용으로 배포 없이 실시간 정책 변경 가능한 구조 구현",
+        "성능 및 운영 개선 | 정산 API 45분 → 3분(90%), 전처리 Batch 4시간 → 1시간, 운영 리소스 월 152시간 절감",
+        "협업 구조 개선 | 항공·기획·운영팀 간 도메인 용어 표준화 및 통합 가이드 배포로 커뮤니케이션 병목 해소"
+      ],
+      "posts": [
         {
-          "title": "Spring Batch Deadlock 해결 — 병렬 Job 환경에서의 트랜잭션 충돌",
+          "title": "CLARE 설계 결정기 — 레거시 청산부터 유연한 정책 대응을 위한 아키텍처 설계까지",
           "postPath": ""
         },
         {
-          "title": "ERP 실시간 동기화 설계 판단 — 기술 이상향 vs 실행 가능성",
+          "title": "Spring Batch Deadlock 해결 — 병렬 Job 환경의 메타 테이블 락 경쟁",
+          "postPath": ""
+        },
+        {
+          "title": "GSON 공통 모듈의 성능 병목 해결 — 배치 환경의 역직렬화 최적화를 위한 Jackson 도입 사례",
           "postPath": ""
         }
       ]
     },
     {
-      "id": "infogram-sample",
-      "title": "인포그램 프로젝트 SAMPLE",
+      "id": "infogram-smartfactory",
+      "title": "SK하이닉스 SmartFactory 시스템 SI & SM",
       "company": "인포그램",
       "type": "work",
       "startDate": "2019-02",
       "endDate": "2022-12",
-      "description": "SK하이닉스 SmartFactory 장비·품질 데이터 수집·분석 시스템을 유지보수하며, 기능 개선과 구조 개선을 수행",
-      "skills": ["Java", "Spring Framework", "Oracle", "C#", "Winform"],
-      "issues": [
+      "description": "SK하이닉스 SmartFactory 장비·품질 데이터 분석 시스템 유지보수 및 개선을 통해, 데이터 처리 안정성과 조회 성능을 개선하고 운영 효율을 향상",
+      "skills": ["Java", "C#","Spring Framework", ".NET Winforms", "Oracle", "Trino", "Linux", "Windows Server"],
+      "contributions": [
+        "대용량 처리 안정화 | 100만~700만 건 조회 시 OOM 원인 분석 후 페이징 기반 구조로 전환, 메모리 가용성 확보",
+        "레거시 리팩토링 | 하드코딩 제거·DTO 도입·이벤트 기반 UI 구조 개선으로 정책 반영 기간 10일 → 4일(60% 단축)",
+        "운영 체계 구축 | 반복 장애 대응 가이드 및 온보딩 매뉴얼 문서화로 운영 프로세스 표준화 및 협업 효율 극대화",
+        "고객 경험 최적화 | 현업 요구사항 기반의 유연한 우선순위 조정 및 장애 대응으로 고객사 선정 'Thanks Partner' 수상"
+      ],
+      "posts": [
         {
-          "title": "100~700만 건 Excel 추출 시 반복적 OOM 발생",
+          "title": "100만~700만 건 OOM 해결 — 페이징 기반 구조 전환",
+          "postPath": ""
+        }
+      ]
+    },
+    {
+      "id": "infogram-spark-airflow",
+      "title": "Spark 기반 장비 데이터 수집 시스템 운영 및 배치 자동화",
+      "company": "인포그램",
+      "type": "work",
+      "startDate": "2021-12",
+      "endDate": "2022-04",
+      "description": "Spark 기반 장비 로그 수집 파이프라인의 버전 업그레이드에 따른 호환성 검증 및 배치 스케줄링 구조 고도화",
+      "note": "SmartFactory SI/SM 프로젝트 병행",
+      "skills": ["Java", "Python", "Scala", "Hadoop", "Spark", "Apache Airflow"],
+      "contributions": [
+        "버전 업그레이드 안정화 | 인프라 업그레이드에 따른 Spark Job 호환성 검증 및 로직 최적화로 운영 연속성 확보",
+        "배치 스케줄링 구조 개선 | crontab 기반 배치를 Apache Airflow DAG로 전환, 의존성·실행 흐름 명시화 및 모니터링 체계 구축",
+        "운영 인수 및 문서화 | 핵심 인력 공백 상황에서 파이프라인 구조·데이터 흐름 구조화로 운영 가시성 확보"
+      ],
+      "posts": [
+        {
+          "title": "도움을 구하는 것도 실력이다",
           "postPath": ""
         }
       ]

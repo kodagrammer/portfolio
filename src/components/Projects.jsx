@@ -1,5 +1,8 @@
 import { useState } from 'react'
 import { calcDuration, formatYearMonth } from '../utils/dateUtils'
+import { parseBold } from '../utils/parseMarkdown'
+const withBase = (path) =>
+    `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`
 
 export default function Projects({ projects }) {
   return (
@@ -44,6 +47,9 @@ function ProjectCard({ project }) {
       {/* 설명 */}
       <p className="text-sm text-text-mid leading-relaxed line-clamp-3">
         {project.description}
+        {project.note && (
+          <span className="text-xs text-text-light italic"> ({project.note})</span>
+        )}
       </p>
 
       {/* 기술 스택 배지 */}
@@ -58,8 +64,25 @@ function ProjectCard({ project }) {
         ))}
       </div>
 
-      {/* 이슈 아코디언 */}
-      {project.issues && project.issues.length > 0 && (
+      {/* 기여 내용 */}
+      {project.contributions?.length > 0 && (
+        <ul className="list-disc pl-5 space-y-3">
+          {project.contributions.map((item, i) => {
+            const [title, content] = item.split(' | ')
+            return (
+              <li key={i}>
+                <span className="font-semibold text-primary text-sm">{parseBold(title)}</span>
+                {content && (
+                  <p className="text-text-mid text-sm mt-0.5">{parseBold(content)}</p>
+                )}
+              </li>
+            )
+          })}
+        </ul>
+      )}
+
+      {/* 기록 아코디언 */}
+      {project.posts && project.posts.length > 0 && (
         <div className="border-t border-border pt-4">
           <button
             onClick={() => setOpen((prev) => !prev)}
@@ -71,28 +94,26 @@ function ProjectCard({ project }) {
             >
               ›
             </span>
-            <span>{open ? '이슈 접기' : '해결한 이슈 보기'}</span>
+            <span>{open ? '기록 접기' : '기록 보기'}</span>
           </button>
 
           {open && (
             <ul className="mt-3 flex flex-col gap-2">
-              {project.issues.map((issue, idx) => {
-                const hasLink = !!issue.postPath
+              {project.posts.map((post, idx) => {
+                const hasLink = !!post.postPath
                 return (
                   <li key={idx} className="flex items-start gap-2 text-sm">
                     {hasLink ? (
-                      <a
-                        href={issue.postPath}
+                      <a href={withBase(post.postPath)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-left text-text-mid hover:text-primary transition-colors flex items-start gap-1"
-                      >
-                        <span>{issue.title}</span>
+                        className="text-left text-text-mid hover:text-primary transition-colors flex items-start gap-1">
+                        <span>{post.title}</span>
                         <span className="shrink-0 text-text-light">↗</span>
                       </a>
                     ) : (
                       <span className="text-text-light flex items-start gap-1">
-                        <span>{issue.title}</span>
+                        <span>{post.title}</span>
                         <span className="shrink-0 text-xs mt-0.5">(준비 중)</span>
                       </span>
                     )}
