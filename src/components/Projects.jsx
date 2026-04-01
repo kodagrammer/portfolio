@@ -1,14 +1,12 @@
 import { useState } from 'react'
 import { calcDuration, formatYearMonth } from '../utils/dateUtils'
 import { parseBold } from '../utils/parseMarkdown'
-const withBase = (path) =>
-    `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`
 
 export default function Projects({ projects }) {
   return (
     <section id="projects" className="py-24 px-8">
-      <div className="max-w-[1100px] mx-auto">
-        <p className="text-2xl font-bold tracking-[0.15em] uppercase text-primary mb-12 text-center">
+      <div className="section-container">
+        <p className="section-title mb-12">
           Projects
         </p>
 
@@ -104,10 +102,12 @@ function ProjectCard({ project }) {
                 return (
                   <li key={idx} className="flex items-start gap-2 text-sm">
                     {hasLink ? (
-                      <a href={withBase(post.postPath)}
+                      <a
+                        href={`${window.location.origin}${window.location.pathname}#/post?src=${encodeURIComponent(post.postPath)}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-left text-text-mid hover:text-primary transition-colors flex items-start gap-1">
+                        className="text-left text-text-mid hover:text-primary transition-colors flex items-start gap-1"
+                      >
                         <span>{post.title}</span>
                         <span className="shrink-0 text-text-light">↗</span>
                       </a>

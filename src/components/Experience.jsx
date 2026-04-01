@@ -8,8 +8,8 @@ export default function Experience({ workExperience }) {
 
   return (
     <section id="experience" className="py-24 px-8 bg-bg-alt">
-      <div className="max-w-[1100px] mx-auto">
-        <p className="text-2xl font-bold tracking-[0.15em] uppercase text-primary mb-2 text-center">
+      <div className="section-container">
+        <p className="section-title mb-2">
           Work Experience
         </p>
         <p className="text-text-light text-base text-center mb-12">

@@ -8,8 +8,8 @@ export default function Education({ education }) {
 
   return (
     <section id="education" className="py-24 px-8 bg-bg-alt">
-      <div className="max-w-[1100px] mx-auto">
-        <p className="text-2xl font-bold tracking-[0.15em] uppercase text-primary mb-12 text-center">
+      <div className="section-container">
+        <p className="section-title mb-12">
           Education
         </p>
 
