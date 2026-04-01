@@ -47,6 +47,51 @@
   }
 }
 
+@layer components {
+  .section-title {
+    @apply text-2xl font-bold tracking-[0.15em] uppercase text-primary text-center;
+  }
+
+  .section-container {
+    @apply max-w-[1100px] mx-auto;
+  }
+
+  .contact-btn {
+    @apply flex items-center justify-center gap-1 px-4 py-2 rounded-xl border border-border bg-card text-xs font-medium text-text-mid hover:border-primary hover:text-primary hover:shadow-sm transition-all duration-200 cursor-pointer;
+  }
+
+  .prose-post {
+    /* 기본 사이즈 및 레이아웃 */
+    @apply prose prose-sm sm:prose-base lg:prose-lg max-w-none;
+
+    /* 제목 및 본문 */
+    @apply prose-headings:font-sans prose-headings:text-text prose-headings:font-semibold;
+    @apply prose-p:text-text-mid prose-p:leading-relaxed;
+    @apply prose-strong:text-text prose-strong:font-semibold;
+    @apply prose-li:text-text-mid;
+
+    /* 링크 및 강조 */
+    @apply prose-a:text-primary prose-a:no-underline hover:prose-a:underline;
+    @apply prose-code:text-primary prose-code:bg-bg-alt prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-mono;
+    @apply prose-code:before:content-none prose-code:after:content-none;
+
+    /* 블록 요소 */
+    @apply prose-pre:bg-bg-alt prose-pre:border prose-pre:border-border prose-pre:rounded-xl;
+    @apply prose-blockquote:border-l-primary prose-blockquote:text-text-light prose-blockquote:not-italic;
+    @apply prose-hr:border-border;
+
+    /* 표 */
+    @apply prose-th:text-text prose-th:bg-bg-alt prose-th:border-b-2 prose-th:border-border;
+
+    & th { vertical-align: middle; }
+    @apply prose-td:text-text-mid;
+
+    & tr:has(strong) {
+      @apply bg-primary/5 text-primary;
+    }
+  }
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
