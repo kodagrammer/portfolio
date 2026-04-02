@@ -13,13 +13,13 @@ import PostViewer from './components/PostViewer'
 
 function usePostRoute() {
   const [postSrc, setPostSrc] = useState(() => {
-    const match = window.location.hash.match(/^#\/post\?src=(.+)/)
-    return match ? decodeURIComponent(match[1]) : null
+    const match = window.location.hash.match(/^#\/posts\/(.+)/)
+    return match ? `/posts/${match[1]}.md` : null
   })
 
   useEffect(() => {
     const onHashChange = () => {
-      const match = window.location.hash.match(/^#\/post\?src=(.+)/)
+      const match = window.location.hash.match(/^#\/posts\/(.+)/)
       setPostSrc(match ? decodeURIComponent(match[1]) : null)
     }
     window.addEventListener('hashchange', onHashChange)

@@ -100,15 +100,15 @@
       "posts": [
         {
           "title": "CLARE 설계 결정기 — 레거시 청산부터 유연한 정책 대응을 위한 아키텍처 설계까지",
-          "postPath": "/posts/clare-architecture.md"
+          "postPath": "clare-architecture"
         },
         {
           "title": "Spring Batch Deadlock 해결 — 병렬 Job 환경의 메타 테이블 락 경쟁",
-          "postPath": "/posts/clare-batch-deadlock.md"
+          "postPath": "clare-batch-deadlock"
         },
         {
           "title": "GSON vs Jackson — 배치 환경에서의 역직렬화 성능 비교와 교체 결정",
-          "postPath": "/posts/json-performance-comparison.md"
+          "postPath": "json-performance-comparison"
         }
       ]
     },

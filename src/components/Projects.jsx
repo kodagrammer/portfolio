@@ -103,7 +103,7 @@ function ProjectCard({ project }) {
                   <li key={idx} className="flex items-start gap-2 text-sm">
                     {hasLink ? (
                       <a
-                        href={`${window.location.origin}${window.location.pathname}#/post?src=${encodeURIComponent(post.postPath)}`}
+                        href={`${window.location.origin}${window.location.pathname}#/posts/${post.postPath}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-left text-text-mid hover:text-primary transition-colors flex items-start gap-1"
