@@ -83,7 +83,7 @@ function ExperienceDetail({ exp }) {
         {exp.department} · {exp.position}
       </p>
       <hr className="border-border mb-6" />
-      <p className="text-xs font-sans font-semibold text-text-light uppercase tracking-widest mb-2">역할 및 업무</p>
+      <p className="subsection-label mb-2">역할 및 업무</p>
       <ul className="list-disc pl-5 flex flex-col gap-2">
         {exp.role.map((desc, i) => (
             <li key={i} className="text-text-mid text-sm leading-relaxed">
@@ -93,7 +93,7 @@ function ExperienceDetail({ exp }) {
       </ul>
       {exp.achievements && exp.achievements.length > 0 && (
         <>
-          <p className="text-xs font-sans font-semibold text-text-light uppercase tracking-widest mt-6 mb-2">주요성과</p>
+          <p className="subsection-label mt-6 mb-2">주요성과</p>
           <ul className="list-disc pl-5 flex flex-col gap-2">
             {exp.achievements.map((item, i) => (
               <li key={i} className="text-text-mid text-sm leading-relaxed">
