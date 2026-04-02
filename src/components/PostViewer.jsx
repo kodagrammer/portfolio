@@ -64,8 +64,8 @@ const mdComponents = {
   h1: ({ children }) => <Heading level={1}>{children}</Heading>,
   h2: ({ children }) => <Heading level={2}>{children}</Heading>,
   h3: ({ children }) => <Heading level={3}>{children}</Heading>,
-  img: ({ src, alt }) => (
-    <img src={resolveImgSrc(src)} alt={alt} className="rounded-xl border border-border w-full" />
+  img: ({ src, alt, style }) => (
+    <img src={resolveImgSrc(src)} alt={alt} style={style} className="rounded-xl border border-border w-full" />
   ),
 };
 
