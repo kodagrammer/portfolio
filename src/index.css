@@ -80,7 +80,7 @@
 
     /* 링크 및 강조 */
     @apply prose-a:text-primary prose-a:no-underline hover:prose-a:underline;
-    @apply prose-code:text-primary prose-code:bg-bg-alt prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-mono;
+    @apply prose-code:text-[#4b4b4b] prose-code:bg-bg-alt prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-mono;
     @apply prose-code:before:content-none prose-code:after:content-none;
 
     /* 블록 요소 */
