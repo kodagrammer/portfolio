@@ -84,38 +84,45 @@ function ProjectCard({ project }) {
         <div className="border-t border-border pt-4">
           <button
             onClick={() => setOpen((prev) => !prev)}
-            className="flex items-center gap-1 text-sm text-text-mid hover:text-primary transition-colors"
+            className="w-full flex items-center justify-between px-4 py-2.5 rounded-xl bg-primary-pale hover:bg-primary group transition-all duration-200 cursor-pointer"
           >
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-semibold text-primary group-hover:text-white transition-colors">
+                {open ? '기록 접기' : '기록 보기'}
+              </span>
+              <span className="px-1.5 py-0.5 text-xs rounded-full bg-primary text-white group-hover:bg-white group-hover:text-primary transition-colors font-bold leading-none">
+                {project.posts.length}
+              </span>
+            </div>
             <span
-              className="inline-block transition-transform duration-200"
+              className="text-primary group-hover:text-white text-lg font-bold transition-all duration-200 inline-block"
               style={{ transform: open ? 'rotate(90deg)' : 'rotate(0deg)' }}
             >
               ›
             </span>
-            <span>{open ? '기록 접기' : '기록 보기'}</span>
           </button>
 
           {open && (
-            <ul className="mt-3 flex flex-col gap-2">
+            <ul className="mt-2 flex flex-col gap-1">
               {project.posts.map((post, idx) => {
                 const hasLink = !!post.postPath
                 return (
-                  <li key={idx} className="flex items-start gap-2 text-sm">
+                  <li key={idx}>
                     {hasLink ? (
                       <a
                         href={`${window.location.origin}${window.location.pathname}#/posts/${post.postPath}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-left text-text-mid hover:text-primary transition-colors flex items-start gap-1"
+                        className="flex items-center justify-between gap-2 px-3 py-2 rounded-lg hover:bg-primary-pale group/link transition-colors"
                       >
-                        <span>{post.title}</span>
-                        <span className="shrink-0 text-text-light">↗</span>
+                        <span className="text-sm text-text-mid group-hover/link:text-primary transition-colors">{post.title}</span>
+                        <span className="shrink-0 text-text-light group-hover/link:text-primary transition-colors">↗</span>
                       </a>
                     ) : (
-                      <span className="text-text-light flex items-start gap-1">
-                        <span>{post.title}</span>
-                        <span className="shrink-0 text-xs mt-0.5">(준비 중)</span>
-                      </span>
+                      <div className="flex items-center justify-between gap-2 px-3 py-2 rounded-lg opacity-60">
+                        <span className="text-sm text-text-light">{post.title}</span>
+                        <span className="shrink-0 text-xs text-text-light">(준비 중)</span>
+                      </div>
                     )}
                   </li>
                 )
