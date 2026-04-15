@@ -44,7 +44,7 @@ async function prerender() {
       const hydrationScript = `<script>globalThis.__SSR_POST_CONTENT__=${escapedMd}</script>`
       const page = template
         .replace('<div id="root"></div>', `<div id="root">${postHtml}</div>`)
-        .replace('</head>', `${hydrationScript}\n</head>`)
+        .replace('<script type="module"', `${hydrationScript}\n    <script type="module"`)
 
       const postDir = path.resolve(distDir, 'posts', slug)
       fs.mkdirSync(postDir, { recursive: true })
