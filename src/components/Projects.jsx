@@ -106,7 +106,8 @@ function ProjectCard({ project }) {
             <ul className="mt-2 flex flex-col gap-1">
               {project.posts.map((post, idx) => {
                 const hasLink = !!post.postPath
-                const postUrl = `${import.meta.env.BASE_URL}posts/${post.slug || post.postPath}`
+                const slug = post.slug || post.postPath
+                const postUrl = `${import.meta.env.BASE_URL}posts/${slug}/`
                 return (
                   <li key={idx}>
                     {hasLink ? (
