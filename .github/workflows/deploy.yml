@@ -35,6 +35,9 @@ jobs:
         # Vite는 결과물이 dist 폴더에 생성됩니다.
         run: npm run build
 
+      - name: Disable Jekyll
+        run: touch dist/.nojekyll
+
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
