@@ -106,11 +106,12 @@ function ProjectCard({ project }) {
             <ul className="mt-2 flex flex-col gap-1">
               {project.posts.map((post, idx) => {
                 const hasLink = !!post.postPath
+                const postUrl = `${import.meta.env.BASE_URL}posts/${post.slug || post.postPath}`
                 return (
                   <li key={idx}>
                     {hasLink ? (
                       <a
-                        href={`${window.location.origin}${window.location.pathname}#/posts/${post.postPath}`}
+                        href={postUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center justify-between gap-2 px-3 py-2 rounded-lg hover:bg-primary-pale group/link transition-colors"

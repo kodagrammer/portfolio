@@ -71,11 +71,13 @@ const mdComponents = {
 
 // ── 메인 컴포넌트 ──────────────────────────────────────
 export default function PostViewer({ postPath }) {
-  const [content, setContent] = useState(null);
+  const [content, setContent] = useState(
+    () => (typeof globalThis.__SSR_POST_CONTENT__ === 'string' ? globalThis.__SSR_POST_CONTENT__ : null)
+  );
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (!postPath) return;
+    if (content || !postPath) return;
     fetch(withBase(postPath))
       .then((res) => { if (!res.ok) throw new Error(); return res.text(); })
       .then(setContent)
@@ -88,7 +90,7 @@ export default function PostViewer({ postPath }) {
     <div className="min-h-screen bg-bg px-4 sm:px-8 py-12 sm:py-16">
       <div className="max-w-[720px] lg:max-w-[1060px] mx-auto">
         <a
-          href={window.location.origin + window.location.pathname}
+          href={import.meta.env.BASE_URL}
           className="post-back-link mb-10 sm:mb-12"
         >
           ← 포트폴리오로 돌아가기
