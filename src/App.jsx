@@ -13,6 +13,7 @@ import PostViewer from './components/PostViewer'
 
 function usePostRoute() {
   const [postSrc, setPostSrc] = useState(() => {
+    if (typeof window === 'undefined') return null
     const match = window.location.hash.match(/^#\/posts\/(.+)/)
     return match ? `/posts/${match[1]}.md` : null
   })
