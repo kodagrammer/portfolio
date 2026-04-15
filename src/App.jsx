@@ -12,27 +12,44 @@ import Footer from './components/Footer'
 import PostViewer from './components/PostViewer'
 
 function usePostRoute() {
-  const [postSrc, setPostSrc] = useState(() => {
-    const match = window.location.hash.match(/^#\/posts\/(.+)/)
-    return match ? `/posts/${match[1]}.md` : null
+  const base = import.meta.env.BASE_URL ?? '/portfolio/'
+  const getSlug = (pathname) => {
+    const match = pathname.match(new RegExp(`^${base}posts/(.+?)/?$`))
+    return match ? match[1] : null
+  }
+
+  const [slug, setSlug] = useState(() => {
+    if (typeof window === 'undefined') {
+      return getSlug(globalThis.__SSR_URL__ ?? '/')
+    }
+    return getSlug(window.location.pathname)
   })
 
   useEffect(() => {
-    const onHashChange = () => {
-      const match = window.location.hash.match(/^#\/posts\/(.+)/)
-      setPostSrc(match ? decodeURIComponent(match[1]) : null)
-    }
-    window.addEventListener('hashchange', onHashChange)
-    return () => window.removeEventListener('hashchange', onHashChange)
+    const onPopState = () => setSlug(getSlug(window.location.pathname))
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
   }, [])
 
-  return postSrc
+  return slug
+}
+
+function resolvePostPath(slug) {
+  for (const project of data.projects) {
+    for (const post of project.posts || []) {
+      if (post.slug === slug || post.postPath === slug) {
+        return `posts/${post.postPath}.md`
+      }
+    }
+  }
+  return null
 }
 
 function App() {
-  const postSrc = usePostRoute()
+  const slug = usePostRoute()
+  const postPath = slug ? resolvePostPath(slug) : null
 
-  if (postSrc) return <PostViewer postPath={postSrc} />
+  if (postPath) return <PostViewer postPath={postPath} />
 
   return (
     <div className="min-h-screen">
