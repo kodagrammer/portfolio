@@ -40,7 +40,11 @@ async function prerender() {
       const mdPath = path.resolve(__dirname, 'public/posts', `${post.postPath}.md`)
       const mdContent = fs.readFileSync(mdPath, 'utf-8')
       const postHtml = render(`/portfolio/posts/${slug}`, mdContent)
-      const page = template.replace('<div id="root"></div>', `<div id="root">${postHtml}</div>`)
+      const escapedMd = JSON.stringify(mdContent)
+      const hydrationScript = `<script>globalThis.__SSR_POST_CONTENT__=${escapedMd}</script>`
+      const page = template
+        .replace('<div id="root"></div>', `<div id="root">${postHtml}</div>`)
+        .replace('</head>', `${hydrationScript}\n</head>`)
 
       const postDir = path.resolve(distDir, 'posts', slug)
       fs.mkdirSync(postDir, { recursive: true })
