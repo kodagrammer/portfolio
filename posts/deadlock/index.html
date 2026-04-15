@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="고다영 - 백엔드 개발자 포트폴리오" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <title>고다영 | Backend Developer Portfolio</title>
+    <script type="module" crossorigin src="/portfolio/assets/index-BoyNtcjg.js"></script>
+    <link rel="stylesheet" crossorigin href="/portfolio/assets/index-nCayxQOA.css">
+  </head>
+  <body>
+    <div id="root"><div class="min-h-screen bg-bg px-4 sm:px-8 py-12 sm:py-16"><div class="max-w-[720px] lg:max-w-[1060px] mx-auto"><a href="/portfolio/" class="post-back-link mb-10 sm:mb-12">← 포트폴리오로 돌아가기</a><div class="lg:grid lg:grid-cols-[200px_1fr] lg:gap-10 lg:items-start"><aside class="hidden lg:block sticky top-8 bg-card border border-border rounded-2xl p-5"><p class="subsection-label mb-3">목차</p><nav class="flex flex-col gap-1"><button class="text-left text-text-light hover:text-primary transition-colors leading-snug py-0.5 cursor-pointer text-sm">Spring Batch Deadlock 해결 — 병렬 Job 환경의 메타 테이블 락 경쟁</button><button class="text-left text-text-light hover:text-primary transition-colors leading-snug py-0.5 cursor-pointer pl-3 text-xs">문제 상황</button><button class="text-left text-text-light hover:text-primary transition-colors leading-snug py-0.5 cursor-pointer pl-3 text-xs">원인 분석</button><button class="text-left text-text-light hover:text-primary transition-colors leading-snug py-0.5 cursor-pointer pl-3 text-xs">검토한 대안들</button><button class="text-left text-text-light hover:text-primary transition-colors leading-snug py-0.5 cursor-pointer pl-3 text-xs">조치</button><button class="text-left text-text-light hover:text-primary transition-colors leading-snug py-0.5 cursor-pointer pl-3 text-xs">마치며</button></nav></aside><article class="prose-post"><h2 id="spring-batch-deadlock-해결--병렬-job-환경의-메타-테이블-락-경쟁">Spring Batch Deadlock 해결 — 병렬 Job 환경의 메타 테이블 락 경쟁</h2>
+<h3 id="문제-상황">문제 상황</h3>
+<p>Quartz 기반으로 3개의 정산 Batch Job이 15분 주기로 동시에 실행되는 환경이었다.
+운영 초기에는 문제가 없었는데, 병렬 실행이 겹치는 특정 시간대마다 반복적으로 아래 예외가 발생했다.</p>
+<pre><code class="language-text">org.springframework.dao.DeadlockLoserDataAccessException: PreparedStatementCallback;
+</code></pre>
+<p>처음에는 비즈니스 로직 쪽 쿼리 문제로 접근했다. 하지만 발생 지점을 추적해보니 Spring Batch 메타테이블에 접근 시 발생하는 문제라는 것을 발견했다.</p>
+<hr/>
+<h3 id="원인-분석">원인 분석</h3>
+<h4>Spring Batch 메타테이블에서 왜 Deadlock이 발생했나</h4>
+<p>Spring Batch는 Job 실행 이력을 <code>BATCH_JOB_INSTANCE</code>, <code>BATCH_JOB_EXECUTION</code> 등 메타테이블에 기록한다.
+여러 Job이 동시에 실행되면 이 메타테이블에 동시 INSERT가 발생한다.</p>
+<p>MySQL InnoDB는 기본 격리수준이 <strong>REPEATABLE_READ</strong>다.
+이 격리수준에서는 INSERT 시 인덱스 범위에 대해 갭 락(Gap Lock) 또는 넥스트 키 락(Next-Key Lock)이 함께 걸릴 수 있다.
+당시 Deadlock 로그를 통해 정확한 락 유형을 확인하지는 못했지만, 서로 다른 Row를 삽입하더라도 동일한 인덱스 범위를 점유하려는 과정에서 경쟁이 발생한 것으로 추정했다.</p>
+<pre><code class="language-text">Job A  ── INSERT ──┐
+                   ├── BATCH_JOB_INSTANCE (인덱스 범위 락 경쟁 추정)
+Job B  ── INSERT ──┘
+</code></pre>
+<p>추가로, Spring Batch의 <code>JobRepository</code>는 트랜잭션을 <strong>Step이 완전히 종료될 때까지 유지</strong>한다. 정산 Step의 처리 시간이 길수록 Lock 점유 시간도 길어지고, 그만큼 다른 Job과 충돌할 확률이 높아진다.</p>
+<hr/>
+<h3 id="검토한-대안들">검토한 대안들</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>대안</th><th>검토 내용</th><th>결론</th></tr></thead><tbody><tr><td>RetryTemplate 적용</td><td>Deadlock 발생 시 재시도 → 근본 원인 미해결, 재시도 중 또 충돌 가능</td><td>❌</td></tr><tr><td>Spring Batch 버전 업그레이드</td><td>v5.0 DDL 변경(시퀀스 테이블 → DB 네이티브 SEQUENCE)이 관련 이슈를 개선하나, MySQL 환경에서 직접적인 효과 불확실 + Spring Boot 호환성 검토 공수 부담</td><td>❌</td></tr><tr><td><strong>격리수준 분리</strong></td><td><strong>메타데이터에만 READ_COMMITTED 적용, 비즈니스 데이터는 유지</strong></td><td>✅</td></tr></tbody></table>
+<p>RetryTemplate은 증상을 감추는 것이고, 버전 업그레이드는 MySQL 환경에서 효과가 불확실한 데다 공수도 컸다.
+메타테이블은 Job 실행 이력 기록 용도라 READ_COMMITTED로 낮춰도 정산 데이터 정합성에 영향이 없다고 판단해 격리수준 분리 방향으로 결정했다.</p>
+<hr/>
+<h3 id="조치">조치</h3>
+<h4>첫 번째 시도 — HikariCP 격리수준 변경</h4>
+<p>가장 간단한 접근으로 HikariCP의 격리수준을 READ_COMMITTED로 변경했다. 결과는 여전히 Deadlock이었다.
+원인을 파악해보니 두 가지였다.</p>
+<p>첫째, 서비스 DataSource와 배치 DataSource가 같은 HikariCP 설정을 공유하고 있었다.
+HikariCP 격리수준을 변경하면 비즈니스 데이터 처리에도 영향이 간다. 정산 데이터 일관성 측면에서 리스크였다.</p>
+<p>둘째, HikariCP 격리수준을 변경해도 <code>JobRepository</code> 자체의 격리수준은 별도로 관리된다.
+JobRepository는 메타테이블에 접근할 때 자체 트랜잭션 설정을 따르기 때문에, HikariCP만 바꿔서는 메타테이블 Lock 경쟁이 해소되지 않았다.</p>
+<br/>
+<h4>최종 조치 — JobRepository 전용 DataSource 분리 + 격리수준 병행 변경</h4>
+<p>두 설정을 모두 적용해야 했다. <code>JobRepository</code> 전용 DataSource를 분리하고, 해당 DataSource와 JobRepository 양쪽에 READ_COMMITTED를 적용했다.</p>
+<pre><code class="language-java">@Configuration
+public class BatchDataSourceConfig {
+
+    @Bean
+    @ConfigurationProperties(&quot;spring.datasource.batch&quot;)
+    public DataSource batchDataSource() {
+        HikariDataSource ds = new HikariDataSource();
+        ds.setTransactionIsolation(&quot;TRANSACTION_READ_COMMITTED&quot;);
+        return ds;
+    }
+
+    @Bean
+    public JobRepository jobRepository(DataSource batchDataSource,
+                                       PlatformTransactionManager batchTxManager) throws Exception {
+        JobRepositoryFactoryBean factory = new JobRepositoryFactoryBean();
+        factory.setDataSource(batchDataSource);
+        factory.setTransactionManager(batchTxManager);
+        factory.setIsolationLevelForCreate(&quot;ISOLATION_READ_COMMITTED&quot;);
+        factory.afterPropertiesSet();
+        return factory.getObject();
+    }
+}
+</code></pre>
+<p>비즈니스 DataSource는 기존 REPEATABLE_READ를 그대로 유지했다.
+메타테이블은 Job 실행 이력 기록 용도라 READ_COMMITTED로 낮춰도 정산 데이터 정합성에 영향이 없다고 판단했다.</p>
+<br/>
+<h4>분리 결과</h4>
+<pre><code class="language-text">[Application]
+├── DataSource A (REPEATABLE_READ)
+│   └── 비즈니스 데이터 (정산 테이블)
+└── DataSource B (READ_COMMITTED)
+    └── Batch 메타데이터 (BATCH_JOB_INSTANCE 등)
+</code></pre>
+<p>메타테이블은 Job 실행 이력 기록 용도라 READ_COMMITTED로 낮춰도 정산 데이터 정합성에 영향이 없다고 판단했다.</p>
+<br/>
+<h4>검증</h4>
+<p>3개 Job을 15분 간격으로 병렬 실행하며 1일 이상 모니터링했다. Deadlock은 재발하지 않았고, 이후 병렬 Job 운영 환경을 정식으로 전환했다.</p>
+<hr/>
+<h3 id="마치며">마치며</h3>
+<p>Deadlock이라고 하면 비즈니스 로직의 쿼리 문제로 먼저 접근하기 쉽다. 이번 케이스는 프레임워크 내부 동작 방식과 DB 격리수준이 맞물린 문제였다.</p>
+<p>격리수준 조정은 정합성과 성능 사이의 트레이드오프다. 이번 케이스에서 READ_COMMITTED를 선택할 수 있었던 건, 메타테이블이 서비스 로직과 분리된 이력 데이터라는 확신이 있었기 때문이다.</p></article></div></div></div></div>
+  </body>
+</html>

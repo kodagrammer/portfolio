@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="고다영 - 백엔드 개발자 포트폴리오" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <title>고다영 | Backend Developer Portfolio</title>
+    <script type="module" crossorigin src="/portfolio/assets/index-BoyNtcjg.js"></script>
+    <link rel="stylesheet" crossorigin href="/portfolio/assets/index-nCayxQOA.css">
+  </head>
+  <body>
+    <div id="root"><div class="min-h-screen bg-bg px-4 sm:px-8 py-12 sm:py-16"><div class="max-w-[720px] lg:max-w-[1060px] mx-auto"><a href="/portfolio/" class="post-back-link mb-10 sm:mb-12">← 포트폴리오로 돌아가기</a><div class="lg:grid lg:grid-cols-[200px_1fr] lg:gap-10 lg:items-start"><aside class="hidden lg:block sticky top-8 bg-card border border-border rounded-2xl p-5"><p class="subsection-label mb-3">목차</p><nav class="flex flex-col gap-1"><button class="text-left text-text-light hover:text-primary transition-colors leading-snug py-0.5 cursor-pointer text-sm">CLARE 설계 결정기 — 레거시 청산부터 유연한 정책 대응을 위한 아키텍처 설계까지</button><button class="text-left text-text-light hover:text-primary transition-colors leading-snug py-0.5 cursor-pointer pl-3 text-xs">들어가며</button><button class="text-left text-text-light hover:text-primary transition-colors leading-snug py-0.5 cursor-pointer pl-3 text-xs">배경 — 왜 분리해야 했나</button><button class="text-left text-text-light hover:text-primary transition-colors leading-snug py-0.5 cursor-pointer pl-3 text-xs">레거시의 문제점</button><button class="text-left text-text-light hover:text-primary transition-colors leading-snug py-0.5 cursor-pointer pl-3 text-xs">설계 결정</button><button class="text-left text-text-light hover:text-primary transition-colors leading-snug py-0.5 cursor-pointer pl-3 text-xs">설계 밖의 문제들</button><button class="text-left text-text-light hover:text-primary transition-colors leading-snug py-0.5 cursor-pointer pl-3 text-xs">결과</button><button class="text-left text-text-light hover:text-primary transition-colors leading-snug py-0.5 cursor-pointer pl-3 text-xs">마치며</button></nav></aside><article class="prose-post"><h2 id="clare-설계-결정기--레거시-청산부터-유연한-정책-대응을-위한-아키텍처-설계까지">CLARE 설계 결정기 — 레거시 청산부터 유연한 정책 대응을 위한 아키텍처 설계까지</h2>
+<h3 id="들어가며">들어가며</h3>
+<p>타이드스퀘어에서 2년 5개월간 항공 정산 MSA 시스템 CLARE를 설계하고 운영했다.<br/>
+이 글은 기술 선택의 결과가 아니라 왜 그 선택을 했는지, 그리고 이상적인 구조를 포기하고 실행 가능한 구조를 선택한 이유에 대한 기록이다.</p>
+<hr/>
+<h3 id="배경--왜-분리해야-했나">배경 — 왜 분리해야 했나</h3>
+<p>기존 ERP는 인사, 재무, 항공 정산이 하나의 모놀리식 서비스로 묶여 있었다. 처음에는 각 도메인의 기능과 범위가 복잡하지 않았기 때문에 큰 문제가 아니었다.</p>
+<p>문제는 비즈니스가 커지면서 시작됐다. 항공사 정산 외에 제휴사 정산, 투어티켓, 호텔 정산까지 요구사항이 확장됐고, 정산 도메인만의 독립적인 개발과 운영이 필요한 상황이 됐다. 그래서 정산 도메인을 MSA 서비스로 분리하기로 했고, 나는 항공 정산 서비스 CLARE의 설계를 맡았다.</p>
+<hr/>
+<h3 id="레거시의-문제점">레거시의 문제점</h3>
+<p>기존 레거시 시스템의 경우, 크게 세 가지 문제점이 있었다.</p>
+<img src="/portfolio/images/clare-architecture-img1.png" alt="clare-architecture-img1" style="width:100%" class="rounded-xl border border-border w-full"/>
+<h4>① 정산 실행 시마다 대규모 데이터 반복 추출</h4>
+<p>기존 구조에서 정산은 실행 시점에 3개의 외부 백오피스에서 API와 DB링크로 항공 데이터를 전량 추출하고, DB에 저장한 후 정산 프로세스를 시작했다.</p>
+<p>A 제휴사 정산을 돌리면 같은 기간 전체 데이터를 추출하고, B 제휴사 정산을 돌리면 <strong>동일한 데이터를 또 추출</strong>했다.
+더불어 재무 데이터 형태에 맞게 피봇된 엔티티 구조에 데이터를 넣기 위해, 기초 데이터(예약/결제/판매가)에 대해 <strong>백오피스 수 × 정산 요소 수만큼 쿼리를 반복</strong>했다. 구조적으로 최적화해도 무조건 시간이 걸리는 방식이었다.</p>
+<p>이로 인해 정산 1번에 <strong>평균 45분</strong>이 걸렸고, 동시에 여러 정산을 실행하면 Deadlock이 발생했다. 결국 4명의 정산 담당자가 구두로 협의하며 한 명씩 순서대로 정산 버튼을 눌렀다.</p>
+<p>처리 속도가 느린 시스템을 위해, 사람이 직렬로 맞춰주고 있었다.</p>
+<h4>② 백오피스별 파편화된 정산 로직</h4>
+<p>3개 백오피스는 각자 다른 DB 스펙과 데이터 구조를 갖고 있었다. 항공료, TAX, 결제금액 같은 금액 항목의 정의조차 백오피스마다 달랐고, 문서화된 것도 없었다.</p>
+<p>결과적으로 같은 정산 정책이어도 백오피스별로 로직이 3벌 구현되어 있었다. 정책이 바뀌면 3군데를 모두 찾아 수정해야 했고, 매 변경마다 누락이 발생해 <strong>정합성 오류가 반복</strong>됐다.</p>
+<h4>③ SP 직접 수정으로 인한 잦은 롤백</h4>
+<p>제휴사 정산은 정책 변경이 특히 잦았다. 그때마다 SP를 직접 수정하고, 문제가 생기면 롤백하는 사이클이 반복됐다. 변경 이력 관리도 되지 않았다.</p>
+<hr/>
+<h3 id="설계-결정">설계 결정</h3>
+<h4>결정 1. 전처리와 정산 실행의 완전 분리</h4>
+<p>핵심은 <strong>데이터를 가져오는 책임</strong>과 <strong>정산을 실행하는 책임</strong>을 완전히 분리하는 것이었다.</p>
+<img src="/portfolio/images/clare-architecture-img4.png" alt="clare-architecture-img4" style="width:70%" class="rounded-xl border border-border w-full"/>
+<p>전처리(데이터 수집 + 표준화)는 Spring Batch Job으로 분리해 오프피크 시간대에 주기적으로 실행하고, 정산 실행 시점에는 이미 표준화된 데이터만 사용하도록 구조를 바꿨다.</p>
+<p>이렇게 하면 세 가지가 해결된다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>문제</th><th>해결</th></tr></thead><tbody><tr><td>정산 실행마다 백오피스 API 반복 호출</td><td>1회 수집 후 N개 정산에서 재사용</td></tr><tr><td>백오피스 구조 변경이 정산 로직으로 전파</td><td>표준화 책임이 전처리에 응집, 정산은 표준 필드만 바라봄</td></tr><tr><td>Deadlock → 담당자 직렬 운영</td><td>전처리 단계에서 데이터 수신 및 표준화 완료하여 단일 쿼리로 정산 처리 속도 90% 단축</td></tr></tbody></table>
+<br/>
+<h4>결정 2. Kafka + DMS를 쓰지 않기로 했다</h4>
+<p>이종 DB 통합 문제를 다루면서 사내에 이미 운영 중이던 Kafka + AWS DMS 기반 CDC 파이프라인 활용을 검토했다.
+다른 팀에서 항공 도메인의 이종 DB 데이터를 MySQL로 적재하는 용도로 운영 중이었고, 기술적으로는 가장 이상적인 선택지였다.</p>
+<p>하지만 보류했다. 이유는 세 가지였다.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>검토 대안</th><th>장점</th><th>제약</th><th>결과</th></tr></thead><tbody><tr><td>Kafka + DMS CDC</td><td>실시간성, 확장성</td><td>타 부서 담당 / 우선순위 낮아 일정 지연 위험</td><td>❌</td></tr><tr><td>해당 팀 DB에 View 생성 후 활용</td><td>기존 인프라 재활용</td><td>정산 관련 테이블 추가 필요 / MSA DB 격리 원칙 위반 / 타 서비스 장애가 정산 장애로 전파</td><td>❌</td></tr><tr><td><strong>기존 방식 유지 (API/JDBC)</strong></td><td>협업 범위 내 즉시 구현 가능</td><td>준실시간 한계</td><td>✅</td></tr></tbody></table>
+<p>기술적으로 이상적인 구조보다, 조직 제약 안에서 실행 가능하고 장애 전파를 차단할 수 있는 구조를 선택했다.
+대신 수집한 데이터를 정산 DB에 표준화해서 적재하는 전처리 레이어를 별도로 두었다.</p>
+<p>이 구조에는 현재 제약 해소 외에 다른 의도도 있었다.
+추후 Kafka + DMS CDC 도입이 가능해지면, 전처리 레이어만 교체하면 된다.
+CDC로 표준화된 데이터가 적재되면 전처리 Batch Job을 제거하고, 정산 모듈은 표준화 View에서 데이터를 가져오도록 갈아끼우는 것으로 마이그레이션이 끝난다. 정산 로직 자체는 건드릴 필요가 없다.</p>
+<p>전처리와 정산을 분리한 것은 제약 속 차선의 선택이기도 했지만, 기술 부채를 해소할 경로를 열어둔 선택이기도 했다.</p>
+<br/>
+<h4>결정 3. Factory + Strategy 패턴으로 정책 변경 비용 최소화</h4>
+<p>항공 정산은 LCC/NDC 항공사 추가가 1~2달에 한 번꼴로 잦았고, 제휴사 정산은 프로모션과 수수료 정책 변경이 빈번했다.
+잦은 변경에 유연하게 대응하기 위해 두 영역 모두 <strong>Factory + 디자인 패턴 + DB 설정화 구조</strong>를 적용했다.</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap;background-color:#2d2d2d;padding:16px;border-radius:12px">
+<img src="/portfolio/images/clare-architecture-img2.png" alt="clare-architecture-img2" style="width:calc(50% - 6px);min-width:280px;flex:1" class="rounded-xl border border-border w-full"/>
+<img src="/portfolio/images/clare-architecture-img3.png" alt="clare-architecture-img3" style="width:calc(50% - 6px);min-width:280px;flex:1" class="rounded-xl border border-border w-full"/>
+</div>
+<p>빌링파일 업로드는 Template + Strategy 패턴으로, 공통 처리 흐름은 interface default 메서드로 고정하고 항공사별 파싱/검증 로직만 구현체로 분리했다.</p>
+<p>제휴사 정산은 Strategy 패턴으로 제휴사별 정산 정책을 구현체 단위로 관리하고, 수수료 계산식은 DB에서 조회해 적용한다. 정책이 바뀌면 DB 수정만으로 <strong>실시간 반영</strong>이 가능하다.</p>
+<p>그 결과, 레거시에서 신규 제휴사 추가시 1주 이상 걸리던 업무가 CLARE는 테스트 포함 2일 이내로 줄었다.</p>
+<hr/>
+<h3 id="설계-밖의-문제들">설계 밖의 문제들</h3>
+<p>좋은 구조를 만들었다고 해서 프로젝트가 순탄하지는 않았다. 코드로 해결되지 않는 문제들이 있었다.</p>
+<p><strong>타 개발팀과의 협업</strong><br/>
+백오피스 API 버그 수정 요청이 반복적으로 드롭됐다. 원인은 기술이 아니라 상대 팀의 업무 우선순위였다.<br/>
+접근 방식을 바꿔 — 쿼리를 직접 분석하고, 수정 범위와 기대 효과를 한 번에 정리해 전달했다. 이후 요청 처리 속도가 달라졌다.<br/>
+협업 병목은 기술이 아니라 상대방의 업무 우선순위 문제였고, 푼 것도 코드가 아니라 요청 방식이었다.</p>
+<p><strong>정산 도메인 용어 표준화</strong><br/>
+전사에 같은 데이터를 부르는 명칭이 제각각이었다. BSP/IATA, DSR/IUR/CSR이 혼용됐고, 같은 명칭인데 계산식이 다른 경우도 있었다. <br/>
+관련자들을 직접 찾아다니며 데이터를 대조하고 Confluence에 정리해 공유했다. 그 결과 커뮤니케이션 미스가 줄었고, 신규 합류자의 온보딩 속도도 빨라졌다.</p>
+<hr/>
+<h3 id="결과">결과</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>항목</th><th>Before</th><th>After</th></tr></thead><tbody><tr><td>정산 처리 시간</td><td>45분</td><td>3분 (최대 30초)</td></tr><tr><td>항공 데이터 전처리</td><td>정산 실행마다 수행</td><td>오프피크 배치, 4시간 → 1시간</td></tr><tr><td>정산 동시 실행</td><td>구두 협의로 직렬 운영</td><td>병렬 Job 독립 실행</td></tr><tr><td>신규 제휴사 추가</td><td>1~2주</td><td>테스트 포함 2일 이내</td></tr><tr><td>정책 변경 방식</td><td>SP 직접 수정 + 배포</td><td>DB 설정 변경으로 실시간 반영</td></tr></tbody></table>
+<hr/>
+<h3 id="마치며">마치며</h3>
+<p>제약이 많은 프로젝트일수록 이상적인 구조보다 <strong>실행 가능한 구조</strong>를 선택해야 하는 순간이 온다.</p>
+<p>중요한 건 차선을 선택하더라도, 나중에 기술 부채를 해소할 수 있는 여지를 구조 안에 남겨두는 것이다.
+CLARE에서 전처리 레이어를 분리한 것도 그런 이유였다. 지금 당장 Kafka + DMS를 쓸 수 없더라도, 나중에 갈아끼울 수 있는 구조를 만들어두는 것.</p>
+<p>결국 <strong>제약 환경에서의 설계란, 당장의 타협이 나중에 감당할 수 없는 부채로 돌아오지 않도록 &#x27;탈출구&#x27;를 만들어두는 일</strong>이기 때문이다.</p></article></div></div></div></div>
+  </body>
+</html>
