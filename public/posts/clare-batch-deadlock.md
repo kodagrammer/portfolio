@@ -1,5 +1,16 @@
 ## Spring Batch Deadlock 해결 — 병렬 Job 환경의 메타 테이블 락 경쟁
 
+### 📌 Overview
+
+- **상황:** Quartz 기반 병렬 Job 환경에서 특정 시간대마다 Deadlock 반복 발생
+- **문제:** 비즈니스 로직이 아닌 Spring Batch 메타테이블의 인덱스 범위 락 경쟁이 원인
+- **결정:** Batch JobRepository 전용 DataSource 분리 + 격리수준 `READ_COMMITTED` 적용
+- **성과:** Deadlock 재발 없음, 병렬 Job 운영 환경 전환 완료
+
+> 프레임워크 뒤에 숨겨진 DB 메커니즘을 끝까지 추적해야 근본 원인에 닿는다.
+
+---
+
 ### 문제 상황
 
 Quartz 기반으로 3개의 정산 Batch Job이 15분 주기로 동시에 실행되는 환경이었다.
@@ -102,8 +113,6 @@ public class BatchDataSourceConfig {
 └── DataSource B (READ_COMMITTED)
     └── Batch 메타데이터 (BATCH_JOB_INSTANCE 등)
 ```
-
-메타테이블은 Job 실행 이력 기록 용도라 READ_COMMITTED로 낮춰도 정산 데이터 정합성에 영향이 없다고 판단했다.
 
 <br/>
 
