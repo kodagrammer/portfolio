@@ -154,8 +154,8 @@
       ],
       "posts": [
         {
-          "title": "도움을 구하는 것도 실력이다",
-          "postPath": ""
+          "title": "Crontab에서 Airflow로 — 기술의 한계를 협업으로 돌파하다",
+          "postPath": "spark-retro"
         }
       ]
     }
