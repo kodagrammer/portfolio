@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="고다영 - 백엔드 개발자 포트폴리오" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+    <title>고다영 | Backend Developer Portfolio</title>
+    <script>globalThis.__SSR_POST_CONTENT__="## Crontab에서 Airflow로 — 기술의 한계를 협업으로 돌파하다\n\n### 📌 Project Overview\n\n+ 상황: 갑작스러운 인력 공백으로 기존 운영 업무와 신규 Spark/Hadoop 구축 프로젝트 병행. 사내 기술 전문가 부재\n+ 나의 역할: 데이터 파이프라인 구축 및 배치 스케줄링 환경 개선\n+ 핵심 성과 (Result):\n  - Crontab 기반 수동 스케줄링 → Apache Airflow 전환\n  - 외부 협력을 통한 Hive 적재 안정화 및 시스템 업그레이드 완수\n\n> **Key Insight**\\\n> 내 지식의 한계를 인정하고, 명확한 상황 공유를 통해 최적의 조력자에게 도움을 이끌어내는 '협업 태도'의 중요성 체득\n\n---\n\n### 배경 — 낯선 생태계와 고립된 상황\n갑작스러운 인력 공백은 때로 예상치 못한 성장의 기회가 되기도 한다.\n\n기존 운영 건을 처리하며 동시에 Spark 기반의 대규모 데이터 파이프라인을 구축해야 했던 이 프로젝트가 그랬다.\nHadoop 생태계에 대한 깊은 이해가 부족했던 상태에서 운영 업무와 병행하다 보니, 사소한 호환성 문제조차 트러블슈팅하는 데 한계가 있었다.\n\n당시 환경은 인프라 담당과 애플리케이션 담당 팀이 분리되어 동일한 리소스를 사용하는 복잡한 구조였다.\n이러한 상황에서 내부적으로 도움을 줄 수 있는 기술 전문가가 부재했기에 외부로 눈을 돌려야만 했다.\n\n\n--- \n\n### Episode 1 — 질문의 기술\n\nScala에서 Hive로 데이터를 적재하는 과정에서 원인 불명의 에러가 반복됐다.\n애플리케이션 단 로그만으로는 인프라 하단의 문제를 파악하기 어려웠다.\n\n고객사에서 Hadoop 버전 업그레이드를 주도하던 PL님께 도움을 요청하기로 했다.\n이때 질문의 목적을 '해답 구걸'이 아닌 '문제 범위 축소'에 뒀다.\n\n **Questioning Skill**\n> + AS-IS:\\\n>   \"Hive 적재 중 에러가 발생합니다. 원격으로 한 번 봐주실 수 있을까요?\"\\\n>   -> 문제점: 상대방이 상황 파악부터 시작해야 하므로 업무 리소스가 크게 발생함\n\n> + TO-BE:\\\n>   \"Hive 적재 시 [Error Name]이 발생하여 **[로그 확인 범위]**와 **[시도해 본 3가지 방법]**을 정리했습니다. \n>    인프라 설정상의 이슈인지 확인을 부탁드려도 될까요?\"\\\n>    -> 장점: 상대방이 이미 확인된 내용을 건너뛰고 본질적인 문제에만 집중할 수 있게 함\n\n구조화된 질문 덕분에 담당자분은 야근을 자처하며 내 로컬에 원격 접속해 함께 디버깅해주셨고, Hive 적재 프로세스를 안정화할 수 있었다.\n\n\n<br/>\n\n### Episode 2 — 신뢰의 활용\n\n기존 배치 작업은 Crontab 기반으로 동작하고 있었다. \n실행은 됐지만 파라미터를 매번 수동으로 수정해야 했고, 작업 간 의존성 파악이나 실패 시 재시도, 모니터링이 불가능한 블랙박스 상태였다.\n\n<img src=\"../images/spark-retro-img1.png\" alt=\"spark-retro-img1\" style=\"width:70%;\" />\n\n더 나은 스케줄링 도구를 찾던 중, 이전 프로젝트에서 함께 일했던 타 협력사 담당자분께 조언을 구했다. \nHadoop 관리팀에서 이미 Airflow로 전체 스케줄링을 운영 중이니, DAG를 작성해 추가하면 된다는 것이었다.\n\nDAG 작성 자체가 기술적으로 복잡한 건 아니었다. \n핵심은 기존 시스템을 얼마나 안정적으로 이관하느냐였는데, 평소 소속에 관계없이 협조적으로 일했던 관계 덕분에 공식 문서 수준을 넘어 실제 운영 환경에 맞는 DAG 구성 템플릿과 의존성 설정 팁까지 전수받을 수 있었다.\n\n덕분에 러닝 커브를 줄이고, 불투명했던 Crontab 배치를 단기간에 가시성 있는 스케줄링 구조로 전환할 수 있었다.\n\n---\n\n### 마치며\n\n이 프로젝트 이후로, 공통 목표 앞에서 소속을 따지는 게 무의미하다는 걸 몸으로 배웠다.\n이후 타이드스퀘어에서 팀을 넘나드는 표준화 작업에 먼저 손을 든 것도 그 연장이었다."</script>
+    <script type="module" crossorigin src="/portfolio/assets/index-CdyJ2BYJ.js"></script>
+    <link rel="stylesheet" crossorigin href="/portfolio/assets/index-nCayxQOA.css">
+  </head>
+  <body>
+    <div id="root"><div class="min-h-screen bg-bg px-4 sm:px-8 py-12 sm:py-16"><div class="max-w-[720px] lg:max-w-[1060px] mx-auto"><a href="/portfolio/" class="post-back-link mb-10 sm:mb-12">← 포트폴리오로 돌아가기</a><div class="lg:grid lg:grid-cols-[200px_1fr] lg:gap-10 lg:items-start"><aside class="hidden lg:block sticky top-8 bg-card border border-border rounded-2xl p-5"><p class="subsection-label mb-3">목차</p><nav class="flex flex-col gap-1"><button class="text-left text-text-light hover:text-primary transition-colors leading-snug py-0.5 cursor-pointer text-sm">Crontab에서 Airflow로 — 기술의 한계를 협업으로 돌파하다</button><button class="text-left text-text-light hover:text-primary transition-colors leading-snug py-0.5 cursor-pointer pl-3 text-xs">📌 Project Overview</button><button class="text-left text-text-light hover:text-primary transition-colors leading-snug py-0.5 cursor-pointer pl-3 text-xs">배경 — 낯선 생태계와 고립된 상황</button><button class="text-left text-text-light hover:text-primary transition-colors leading-snug py-0.5 cursor-pointer pl-3 text-xs">Episode 1 — 질문의 기술</button><button class="text-left text-text-light hover:text-primary transition-colors leading-snug py-0.5 cursor-pointer pl-3 text-xs">Episode 2 — 신뢰의 활용</button><button class="text-left text-text-light hover:text-primary transition-colors leading-snug py-0.5 cursor-pointer pl-3 text-xs">마치며</button></nav></aside><article class="prose-post"><h2 id="crontab에서-airflow로--기술의-한계를-협업으로-돌파하다">Crontab에서 Airflow로 — 기술의 한계를 협업으로 돌파하다</h2>
+<h3 id="-project-overview">📌 Project Overview</h3>
+<ul>
+<li>상황: 갑작스러운 인력 공백으로 기존 운영 업무와 신규 Spark/Hadoop 구축 프로젝트 병행. 사내 기술 전문가 부재</li>
+<li>나의 역할: 데이터 파이프라인 구축 및 배치 스케줄링 환경 개선</li>
+<li>핵심 성과 (Result):
+<ul>
+<li>Crontab 기반 수동 스케줄링 → Apache Airflow 전환</li>
+<li>외부 협력을 통한 Hive 적재 안정화 및 시스템 업그레이드 완수</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>Key Insight</strong><br/>
+내 지식의 한계를 인정하고, 명확한 상황 공유를 통해 최적의 조력자에게 도움을 이끌어내는 &#x27;협업 태도&#x27;의 중요성 체득</p>
+</blockquote>
+<hr/>
+<h3 id="배경--낯선-생태계와-고립된-상황">배경 — 낯선 생태계와 고립된 상황</h3>
+<p>갑작스러운 인력 공백은 때로 예상치 못한 성장의 기회가 되기도 한다.</p>
+<p>기존 운영 건을 처리하며 동시에 Spark 기반의 대규모 데이터 파이프라인을 구축해야 했던 이 프로젝트가 그랬다.
+Hadoop 생태계에 대한 깊은 이해가 부족했던 상태에서 운영 업무와 병행하다 보니, 사소한 호환성 문제조차 트러블슈팅하는 데 한계가 있었다.</p>
+<p>당시 환경은 인프라 담당과 애플리케이션 담당 팀이 분리되어 동일한 리소스를 사용하는 복잡한 구조였다.
+이러한 상황에서 내부적으로 도움을 줄 수 있는 기술 전문가가 부재했기에 외부로 눈을 돌려야만 했다.</p>
+<hr/>
+<h3 id="episode-1--질문의-기술">Episode 1 — 질문의 기술</h3>
+<p>Scala에서 Hive로 데이터를 적재하는 과정에서 원인 불명의 에러가 반복됐다.
+애플리케이션 단 로그만으로는 인프라 하단의 문제를 파악하기 어려웠다.</p>
+<p>고객사에서 Hadoop 버전 업그레이드를 주도하던 PL님께 도움을 요청하기로 했다.
+이때 질문의 목적을 &#x27;해답 구걸&#x27;이 아닌 &#x27;문제 범위 축소&#x27;에 뒀다.</p>
+<p><strong>Questioning Skill</strong></p>
+<blockquote>
+<ul>
+<li>AS-IS:<br/>
+&quot;Hive 적재 중 에러가 발생합니다. 원격으로 한 번 봐주실 수 있을까요?&quot;<br/>
+-&gt; 문제점: 상대방이 상황 파악부터 시작해야 하므로 업무 리소스가 크게 발생함</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>TO-BE:<br/>
+&quot;Hive 적재 시 [Error Name]이 발생하여 **[로그 확인 범위]**와 **[시도해 본 3가지 방법]**을 정리했습니다.
+인프라 설정상의 이슈인지 확인을 부탁드려도 될까요?&quot;<br/>
+-&gt; 장점: 상대방이 이미 확인된 내용을 건너뛰고 본질적인 문제에만 집중할 수 있게 함</li>
+</ul>
+</blockquote>
+<p>구조화된 질문 덕분에 담당자분은 야근을 자처하며 내 로컬에 원격 접속해 함께 디버깅해주셨고, Hive 적재 프로세스를 안정화할 수 있었다.</p>
+<br/>
+<h3 id="episode-2--신뢰의-활용">Episode 2 — 신뢰의 활용</h3>
+<p>기존 배치 작업은 Crontab 기반으로 동작하고 있었다.
+실행은 됐지만 파라미터를 매번 수동으로 수정해야 했고, 작업 간 의존성 파악이나 실패 시 재시도, 모니터링이 불가능한 블랙박스 상태였다.</p>
+<img src="/portfolio/images/spark-retro-img1.png" alt="spark-retro-img1" style="width:70%" class="rounded-xl border border-border w-full"/>
+<p>더 나은 스케줄링 도구를 찾던 중, 이전 프로젝트에서 함께 일했던 타 협력사 담당자분께 조언을 구했다.
+Hadoop 관리팀에서 이미 Airflow로 전체 스케줄링을 운영 중이니, DAG를 작성해 추가하면 된다는 것이었다.</p>
+<p>DAG 작성 자체가 기술적으로 복잡한 건 아니었다.
+핵심은 기존 시스템을 얼마나 안정적으로 이관하느냐였는데, 평소 소속에 관계없이 협조적으로 일했던 관계 덕분에 공식 문서 수준을 넘어 실제 운영 환경에 맞는 DAG 구성 템플릿과 의존성 설정 팁까지 전수받을 수 있었다.</p>
+<p>덕분에 러닝 커브를 줄이고, 불투명했던 Crontab 배치를 단기간에 가시성 있는 스케줄링 구조로 전환할 수 있었다.</p>
+<hr/>
+<h3 id="마치며">마치며</h3>
+<p>이 프로젝트 이후로, 공통 목표 앞에서 소속을 따지는 게 무의미하다는 걸 몸으로 배웠다.
+이후 타이드스퀘어에서 팀을 넘나드는 표준화 작업에 먼저 손을 든 것도 그 연장이었다.</p></article></div></div></div></div>
+  </body>
+</html>
